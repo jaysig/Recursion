@@ -7,7 +7,7 @@
 //Default pulls an array of each instance of the class and all of its child elements
 var getElementsByClassName = function(className) {
   var classes = [];
-  var body = document.body;
+  // var body = document.body;
   var classer = function(nodes){
     for (var i =0;i<nodes.childNodes.length;i++){
       if(nodes.childNodes[i].className !== undefined && nodes.childNodes[i].classList.contains(className)){
@@ -20,6 +20,6 @@ var getElementsByClassName = function(className) {
       }
     }
   };
-  classer(body);
+  classer(document);
   return classes;
 };

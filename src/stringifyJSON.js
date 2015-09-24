@@ -26,6 +26,9 @@ var stringifyJSON = function(obj) {
           //'['+item+']'
         } else if (typeof item === "string"){
           test += '"'+item+'"';
+        } else if(typeof item === "object" && Array.isArray(item) === false){
+          console.log(item);
+          test += stringifyJSON(item);
         } else {
           test += item;
         }
@@ -41,11 +44,30 @@ var stringifyJSON = function(obj) {
       //(typeof obj !== "object" && Array.isArray(element) === false)
       //Traditional Objects
       test = "";
+      keyArr = Object.keys(obj);
+      counter = 0;
       for (var key in obj){
-        key = stringifyJSON(key);
-        oKey = stringifyJSON(obj[key]);
-        test += key + ":";
-        test += obj[key];
+        if(typeof key === "object" && Array.isArray(key) === false){
+          test += stringifyJSON(key);
+        } else if (Array.isArray(key) === true){
+          test += stringifyJSON(key);
+        } else {
+          keyA = stringifyJSON(key);
+          test += keyA + ":";
+        }
+        if(typeof obj[key] === "object" && Array.isArray(obj[key]) === false && obj[key] !== null){
+          test += stringifyJSON(obj[key]);
+          test += ",";
+        } else if (Array.isArray(obj[key]) === true || obj[key] === null){
+          test += stringifyJSON(obj[key]);
+        } else {
+          oKey = stringifyJSON(obj[key]);
+          test += oKey;
+        }
+        if(counter < keyArr.length-1 && keyArr.length-1 !== 0){
+          test += ",";
+        }
+        counter++;
         // if(Array.isArray(item)){
         //   test += stringifyJSON(item);
         //   //'['+item+']'

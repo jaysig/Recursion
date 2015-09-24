@@ -57,14 +57,19 @@ var stringifyJSON = function(obj) {
         }
         if(typeof obj[key] === "object" && Array.isArray(obj[key]) === false && obj[key] !== null){
           test += stringifyJSON(obj[key]);
-          test += ",";
+          if(keyArr.length-1 !== 0){
+              test += ",";
+          }
         } else if (Array.isArray(obj[key]) === true || obj[key] === null){
           test += stringifyJSON(obj[key]);
-        } else {
+        } else if (typeof obj[key] === "function" || obj[key] === undefined){
+          test = "";
+        }else {
           oKey = stringifyJSON(obj[key]);
           test += oKey;
         }
         if(counter < keyArr.length-1 && keyArr.length-1 !== 0){
+          console.log(keyArr.length-1);
           test += ",";
         }
         counter++;

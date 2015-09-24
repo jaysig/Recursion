@@ -8,6 +8,7 @@
 var getElementsByClassName = function(className) {
   var classes = [];
   // var body = document.body;
+  //Modify to allow for document.body
   var classer = function(nodes){
     for (var i =0;i<nodes.childNodes.length;i++){
       if(nodes.childNodes[i].className !== undefined && nodes.childNodes[i].classList.contains(className)){
